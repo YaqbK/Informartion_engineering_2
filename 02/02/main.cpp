@@ -53,6 +53,21 @@ public:
         return hours_*60*60 + minutes_*60 + seconds_;
     }
 
+    Time::operator-(const Time &rhs) const {
+        int total_hours = hours_ - rhs.hours_;
+        int total_minutes = minutes_ - rhs.minutes_;
+        double = total_seconds = seconds_ - rhs.seconds_;
+        if (total_seconds < 0) {
+            total_minutes--;
+            total_seconds += 60;
+            if (total_minutes < 0) {
+                total_hours--;
+                total_minutes += 60;
+            }
+        }
+        return Time(total_hours, total_minutes, total_seconds);
+    }
+
 private:
     int hours_;
     int minutes_;
