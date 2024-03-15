@@ -3,7 +3,10 @@
 
 #endif // HEADER2_H
 
+#include<iostream>
 
 class Item;
 class Invoice;
-void print_item_amount(const Item &item, int len);
+void fill(const int &len, const std::string &name);
+void print_item_amount(const Item &item);
+void print_item_net(const Item &item);

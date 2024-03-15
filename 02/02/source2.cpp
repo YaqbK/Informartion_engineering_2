@@ -10,7 +10,8 @@ class Item{
     char vat_type;
     int amount;
     friend class Invoice;
-    friend void print_item_amount(const Item &item, int len);
+    friend void print_item_amount(const Item &item);
+    friend void print_item_net(const Item &item);
 };
 
 class Invoice{
@@ -47,15 +48,21 @@ public:
         int j = 1; // counter
         for (auto it : items_){
             cout << j++ << ". " << it.name;
-            print_item_amount(it, len);
+            fill(len, it.name);
+            cout << "| " << it.unp << "  " << it.vat_type << " |";
+            print_item_amount(it);
+            print_item_net(it);
         }
     }
 };
 
-void print_item_amount(const Item &item, int len){
-    for (int i = 0; i < (len - item.name.length()+3); ++i) {
+void fill(const int &len, const string &name){
+    for (int i = 0; i < (len - name.length()+3); ++i) {
         cout << " ";
-    } cout << "| " << item.unp << "  " << item.vat_type << " |";
+    }
+}
+
+void print_item_amount(const Item &item){
     if (item.amount > 9999)
         cout << item.amount;
     else if (item.amount > 999)
@@ -65,5 +72,20 @@ void print_item_amount(const Item &item, int len){
     else if (item.amount < 100)
         cout << "  " << item.amount << " ";
     else cout << " " << item.amount << " ";
+    cout << "| ";
+}
+
+void print_item_net(const Item &item){
+    float net = item.amount*item.unp;
+    string snet = to_string(net);
+    if (snet.length() > 4)
+        cout << net;
+    else if (snet.length() > 3)
+        cout << " " << net;
+    else if (snet.length() < 2)
+        cout << "   " << net << " ";
+    else if (snet.length() < 3)
+        cout << "  " << net << " ";
+    else cout << " " << net << " ";
     cout << "| ";
 }
