@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <string>
 #include "header2.h"
 
 using namespace std;
@@ -23,6 +24,15 @@ class Invoice{
     vector<Item> items_;
 
 public:
+
+    Invoice(int NIP_b = 0, int NIP_s = 0){
+        for (auto c : to_string(NIP_b)){
+            NIP_buyer_.emplace_back(int(c));
+        }
+        for (auto c : to_string(NIP_s)){
+            NIP_seller_.emplace_back(int(c));
+        }
+    }
 
     void add_item(const Item &item){
         items_.emplace_back(item);
@@ -64,6 +74,10 @@ public:
         cout << "\n\n------------------------------- TOTAL ----" << endl;
         cout << "                             " << net_total << " | " << total_total << endl;
     }
+
+//    ostream &operator<<(ostream &str, Invoice &rhs){  //need to learn about it more
+//        print_info();
+//    }
 };
 
 void fill(const int &len, const string &name){

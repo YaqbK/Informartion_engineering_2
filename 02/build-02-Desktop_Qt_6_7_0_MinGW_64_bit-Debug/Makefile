@@ -353,6 +353,7 @@ Makefile: ../02/02.pro E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/win32-g++/qma
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/qt_config.prf \
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/win32-g++/qmake.conf \
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/exclusive_builds.prf \
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/toolchain.prf \
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/default_pre.prf \
@@ -372,7 +373,6 @@ Makefile: ../02/02.pro E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/win32-g++/qma
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/yacc.prf \
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/lex.prf \
 		../02/02.pro \
-		.qmake.stash \
 		E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/build_pass.prf
 	$(QMAKE) -o Makefile ..\02\02.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/spec_pre.prf:
@@ -658,6 +658,7 @@ E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/qt_functions.prf:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/qt_config.prf:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/win32-g++/qmake.conf:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/exclusive_builds.prf:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/toolchain.prf:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/default_pre.prf:
@@ -677,7 +678,6 @@ E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/exceptions.prf:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/yacc.prf:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/lex.prf:
 ../02/02.pro:
-.qmake.stash:
 E:/QuickStartApps/QT/6.7.0/mingw_64/mkspecs/features/build_pass.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\02\02.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
