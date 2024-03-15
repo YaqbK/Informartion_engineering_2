@@ -1,8 +1,11 @@
 #include <iostream>
 #include <vector>
+#include <map>
 #include "header2.h"
 
 using namespace std;
+
+map<char, float> vat{{'A', 1.23}, {'B', 1.08}, {'C', 1}};
 
 class Item{
     string name;
@@ -12,6 +15,7 @@ class Item{
     friend class Invoice;
     friend void print_item_amount(const Item &item);
     friend void print_item_net(const Item &item);
+    friend void print_item_total(const Item &item);
 };
 
 class Invoice{
@@ -46,13 +50,19 @@ public:
         } cout << "c.j. VAT   il.   net   total" << endl;
 
         int j = 1; // counter
+        float net_total = 0, total_total = 0;
         for (auto it : items_){
             cout << j++ << ". " << it.name;
             fill(len, it.name);
             cout << "| " << it.unp << "  " << it.vat_type << " |";
             print_item_amount(it);
             print_item_net(it);
+            print_item_total(it);
+            net_total += it.amount*it.unp;
+            total_total += net_total*vat[it.vat_type];
         }
+        cout << "\n\n------------------------------- TOTAL ----" << endl;
+        cout << "                             " << net_total << " | " << total_total << endl;
     }
 };
 
@@ -88,4 +98,19 @@ void print_item_net(const Item &item){
         cout << "  " << net << " ";
     else cout << " " << net << " ";
     cout << "| ";
+}
+
+void print_item_total(const Item &item){
+
+    float total = item.amount*item.unp*vat[item.vat_type];
+    string stotal = to_string(total);
+    if (stotal.length() > 4)
+        cout << total;
+    else if (stotal.length() > 3)
+        cout << " " << total;
+    else if (stotal.length() < 2)
+        cout << "    " << total;
+    else if (stotal.length() < 3)
+        cout << "   " << total;
+    else cout << "  " << total;
 }
