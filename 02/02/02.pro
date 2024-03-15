@@ -5,4 +5,8 @@ CONFIG -= qt
 
 SOURCES += \
         2.cpp \
-        main.cpp
+        main.cpp \
+        source2.cpp
+
+HEADERS += \
+    header2.h

@@ -43,9 +43,13 @@ public:
             cout << " ";
         } cout << "c.j. VAT   il.   net   total" << endl;
 
-        cout << "items: " << endl;
+        int j = 1; // counter
         for (auto it : items_){
-
+            cout << j++ << ". " << it.name;
+            for (int i = 0; i < (len - it.name.length()+3); ++i) {
+                cout << " ";
+            } cout << "| " << it.unp << "  " << it.vat_type << " |";
+            if
         }
     }
 };
