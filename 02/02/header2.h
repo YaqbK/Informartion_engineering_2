@@ -5,3 +5,5 @@
 
 
 class Item;
+class Invoice;
+void print_item_amount(const Item &item, int len);
