@@ -8,6 +8,8 @@ class Item{
     float unp;
     char vat_type;
     int amount;
+    friend class Invoice;
+
 };
 
 class Invoice{
@@ -16,7 +18,7 @@ class Invoice{
 
 public:
 
-    void add_item(const string item){
+    void add_item(const Item &item){
         items_.emplace_back(item);
     }
 
@@ -30,7 +32,17 @@ public:
         cout << "Buyer: ";
         for (auto digit : NIP_buyer_){
             cout << digit;
-        } cout << endl;
+        } cout << "\n" << endl;
+
+        int len = 0;
+        for (auto item : items_){
+            if(item.name.length() > len)
+                len = item.name.length();
+        }
+        for (int i = 0; i <= len+5; i++){
+            cout << " ";
+        } cout << "c.j. VAT   il.   net   total" << endl;
+
         cout << "items: " << endl;
         for (auto it : items_){
 

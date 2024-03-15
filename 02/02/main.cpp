@@ -53,7 +53,7 @@ public:
         return hours_*60*60 + minutes_*60 + seconds_;
     }
 
-    Time::operator-(const Time &rhs) const {
+    Time::operator-(const Time &rhs) const { // when i added this function weird errors occur and i have no idea why, somehow hours_ becomes undeclared???
         int total_hours = hours_ - rhs.hours_;
         int total_minutes = minutes_ - rhs.minutes_;
         double = total_seconds = seconds_ - rhs.seconds_;
