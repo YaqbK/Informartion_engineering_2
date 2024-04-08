@@ -17,7 +17,7 @@ public:
         Rspeed_ = Rspeed;
     }
     void animate(float &dt, int y, int x){
-        move(Yspeed_*dt, Xspeed_*dt);
+        move(Xspeed_*dt, Yspeed_*dt);
         rotate(Rspeed_*dt);
          sf::FloatRect rec_bounds = getGlobalBounds();
         if(rec_bounds.top <= 0){
@@ -46,18 +46,59 @@ public:
     void move_left() {Yspeed_ = abs(Yspeed_)*-1;}
 
     void moveInDirection(){
+
+        // one way
+//        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+//            move_up();
+//        }
+//        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+//            move_down();
+//        }
+//        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+//            move_right();
+//        }
+//        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+//            move_left();
+//        }
+
+        // the other
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-            move_up();
+            Yspeed_ = -150;
+            Xspeed_ = 0;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-            move_down();
+            Yspeed_ = 150;
+            Xspeed_ = 0;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-            move_right();
+            Yspeed_ = 0;
+            Xspeed_ = 150;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            move_left();
+            Yspeed_ = 0;
+            Xspeed_ = -150;
         }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+            Yspeed_ = -150;
+            Xspeed_ = 150;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+            Yspeed_ = -150;
+            Xspeed_ = -150;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+            Yspeed_ = 150;
+            Xspeed_ = 150;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+            Yspeed_ = 150;
+            Xspeed_ = -150;
+        }
+        if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+            Yspeed_ = 0;
+            Xspeed_ = 0;
+        }
+
     }
     void ObjectCollision(sf::RectangleShape other_object){
         sf::FloatRect object2 = other_object.getGlobalBounds();
@@ -153,7 +194,7 @@ int main() {
         rec2.animate(dt, window.getSize().y, window.getSize().x);
 
         rec2.moveInDirection();
-        rec2.ObjectCollision(rectangle);
+        // rec2.ObjectCollision(rectangle); it's bugged and not needed in the final assignment so i'm leaving it for now commented
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event)) {
