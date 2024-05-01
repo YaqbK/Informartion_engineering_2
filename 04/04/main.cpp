@@ -45,7 +45,7 @@ public:
     void move_right() {Yspeed_ = abs(Yspeed_);}
     void move_left() {Yspeed_ = abs(Yspeed_)*-1;}
 
-    void moveInDirection(){
+    void moveInDirection(int y, int x){
 
         // one way
 //        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
@@ -62,15 +62,23 @@ public:
 //        }
 
         // the other
+
+        sf::FloatRect rec_bounds = getGlobalBounds();
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+            if(rec_bounds.top > 0){ // I don't get why this doesn't work
             Yspeed_ = -150;
             Xspeed_ = 0;
+            }
+
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+            if(rec_bounds.top + rec_bounds.height < y){
             Yspeed_ = 150;
             Xspeed_ = 0;
+            }
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+
             Yspeed_ = 0;
             Xspeed_ = 150;
         }
@@ -164,7 +172,7 @@ int main() {
     sf::Vector2f size(120.0, 60.0);
     sf::Vector2f position(120.0, 60.0);
     CustomRectangleShape rec2(size, position);
-    rec2.setSpeed(150, 150, 0);
+    //rec2.setSpeed(150, 150, 0);
 
     // run the program as long as the window is open
     while (window.isOpen()) {
@@ -193,7 +201,7 @@ int main() {
         rectangle.rotate(rectangle_angular_velocity*dt);
         rec2.animate(dt, window.getSize().y, window.getSize().x);
 
-        rec2.moveInDirection();
+        rec2.moveInDirection(window.getSize().y, window.getSize().x);
         // rec2.ObjectCollision(rectangle); it's bugged and not needed in the final assignment so i'm leaving it for now commented
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
