@@ -8,13 +8,21 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Labirynth");
 
     sf::Texture grass_texture;
-    if (!grass_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/wall.png")) {
-        std::cerr << "Could not load texture" << std::endl;
-        return 1;
-    }
+    if (!grass_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/grass.png")) {return 1;}
+    grass_texture.setRepeated(true);
+    sf::Sprite grass;
+    grass.setTexture(grass_texture);
+    grass.setTextureRect(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 
-    //sf::Sprite sprite;
-    //sprite.setTexture(grass_texture);
+    sf::Texture wall_texture;
+    if (!wall_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/wall.png")) {return 1;}
+    sf::Sprite wall;
+    wall.setTexture(wall_texture);
+
+    sf::Texture guy_texture;
+    if (!guy_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/guy.png")) {return 1;}
+    sf::Sprite guy;
+    guy.setTexture(guy_texture);
 
     // run the program as long as the window is open
     while (window.isOpen()) {
@@ -26,10 +34,15 @@ int main() {
                 window.close();
         }
 
+
+
         // clear the window with black color
         window.clear(sf::Color::Black);
 
         // draw everything here...
+//        grass.setTexture(grass_texture);
+//        grass.setTextureRect(sf::IntRect(100, 200, 200, 150));
+        window.draw(grass);
 
         // end the current frame
         window.display();
