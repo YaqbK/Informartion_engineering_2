@@ -41,7 +41,16 @@ int main() {
     walls[4]->setTextureRect(sf::IntRect(9, 0, 28, (window.getSize().y-100)/2-28));
     walls[4]->setPosition(window.getSize().x-28,(window.getSize().y-100)/2+100);
 
-    for (int i = 0; i < 5; ++i) {
+    walls[5]->setTextureRect(sf::IntRect(9, 0, 200, 28));
+    walls[5]->setPosition(28, 430);
+
+    walls[6]->setTextureRect(sf::IntRect(9, 0, 28, 280));
+    walls[6]->setPosition(150, 27);
+
+    walls[7]->setTextureRect(sf::IntRect(9, 0, 250, 28));
+    walls[7]->setPosition(178, 110);
+
+    for (int i = 0; i < 8; ++i) {
         shapes.emplace_back(std::move(walls[i]));
     }
 
@@ -51,7 +60,6 @@ int main() {
     guy->setTexture(guy_texture);
     guy->setPosition(50,50);
     shapes.emplace_back(std::move(guy));
-
 
 
     // run the program as long as the window is open
