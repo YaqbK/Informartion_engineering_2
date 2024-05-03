@@ -1,10 +1,20 @@
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 int main() {
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "Labirynth");
+
+    sf::Texture grass_texture;
+    if (!grass_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/wall.png")) {
+        std::cerr << "Could not load texture" << std::endl;
+        return 1;
+    }
+
+    //sf::Sprite sprite;
+    //sprite.setTexture(grass_texture);
 
     // run the program as long as the window is open
     while (window.isOpen()) {
