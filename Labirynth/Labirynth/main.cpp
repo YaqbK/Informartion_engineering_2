@@ -22,11 +22,13 @@ int main() {
     if (!wall_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/wall.png")) {return 1;}
     wall_texture.setRepeated(true);
     int numOfWalls = 10;
-    std::vector<sf::Sprite> walls(numOfWalls);
+    std::vector<std::unique_ptr<sf::Sprite>> walls;
     for(int i=0; i<numOfWalls; i++){
-        walls[i].setTexture(wall_texture);
+        walls.emplace_back(std::make_unique<sf::Sprite>());
+        walls[i]->setTexture(wall_texture);
     }
-    walls[0].setTextureRect(sf::IntRect(0, 0, window.getSize().x, 30));
+    walls[0]->setTextureRect(sf::IntRect(0, 0, window.getSize().x, 30));
+    shapes.emplace_back(std::move(walls[0]));
 
     sf::Texture guy_texture;
     if (!guy_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/guy.png")) {return 1;}
@@ -52,7 +54,6 @@ int main() {
         for(auto &s : shapes) {
             window.draw(*s);
         }
-        window.draw(walls[0]);
 
         // end the current frame
         window.display();
