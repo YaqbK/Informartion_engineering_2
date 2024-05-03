@@ -27,8 +27,16 @@ int main() {
         walls.emplace_back(std::make_unique<sf::Sprite>());
         walls[i]->setTexture(wall_texture);
     }
-    walls[0]->setTextureRect(sf::IntRect(0, 0, window.getSize().x, 30));
-    shapes.emplace_back(std::move(walls[0]));
+    walls[0]->setTextureRect(sf::IntRect(0, 0, window.getSize().x, 28));
+
+    walls[1]->setTextureRect(sf::IntRect(0, 0, window.getSize().x, 28));
+    walls[1]->setPosition(0, window.getSize().y-28);
+
+
+
+    for (int i = 0; i < 2; ++i) {
+        shapes.emplace_back(std::move(walls[i]));
+    }
 
     sf::Texture guy_texture;
     if (!guy_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/guy.png")) {return 1;}
