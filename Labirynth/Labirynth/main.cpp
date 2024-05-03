@@ -32,9 +32,16 @@ int main() {
     walls[1]->setTextureRect(sf::IntRect(0, 0, window.getSize().x, 28));
     walls[1]->setPosition(0, window.getSize().y-28);
 
+    walls[2]->setTextureRect(sf::IntRect(9, 0, 28, window.getSize().y-56));
+    walls[2]->setPosition(0,28);
 
+    walls[3]->setTextureRect(sf::IntRect(9, 0, 28, (window.getSize().y-100)/2));
+    walls[3]->setPosition(window.getSize().x-28,28);
 
-    for (int i = 0; i < 2; ++i) {
+    walls[4]->setTextureRect(sf::IntRect(9, 0, 28, (window.getSize().y-100)/2-28));
+    walls[4]->setPosition(window.getSize().x-28,(window.getSize().y-100)/2+100);
+
+    for (int i = 0; i < 5; ++i) {
         shapes.emplace_back(std::move(walls[i]));
     }
 
