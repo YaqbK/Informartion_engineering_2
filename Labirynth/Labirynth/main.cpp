@@ -47,8 +47,12 @@ int main() {
 
     sf::Texture guy_texture;
     if (!guy_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/guy.png")) {return 1;}
-    sf::Sprite guy;
-    guy.setTexture(guy_texture);
+    std::unique_ptr<sf::Sprite> guy = std::make_unique<sf::Sprite>();
+    guy->setTexture(guy_texture);
+    guy->setPosition(50,50);
+    shapes.emplace_back(std::move(guy));
+
+
 
     // run the program as long as the window is open
     while (window.isOpen()) {
@@ -64,11 +68,7 @@ int main() {
         window.clear(sf::Color::Black);
 
         // draw everything here...
-//        grass.setTexture(grass_texture);
-//        grass.setTextureRect(sf::IntRect(100, 200, 200, 150));
-        for(auto &s : shapes) {
-            window.draw(*s);
-        }
+        for(auto &s : shapes) { window.draw(*s); }
 
         // end the current frame
         window.display();
