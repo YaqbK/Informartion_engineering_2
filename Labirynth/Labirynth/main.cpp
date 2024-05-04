@@ -3,8 +3,43 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
+#include <SFML/Window/Mouse.hpp>
+
+
+std::vector<int> player_move(const int& x, const int& y, const int& movement){
+    int mouse_x = sf::Mouse::getPosition().x;
+    int mouse_y = sf::Mouse::getPosition().y;
+    int mx, my;
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+        if (mouse_x > x + 43 && mouse_y > y + 69){
+            mx = (mouse_x - (x+43) < 20) ? movement : 0;
+            my = (mouse_y - (y+69) < 20) ? movement : 0;
+        }
+        else if (mouse_x < x && mouse_y < y){
+            mx = (x - mouse_x < 20) ? movement : 0;
+            my = (y - mouse_y < 20) ? movement : 0;
+        }
+        else if (mouse_x < x && mouse_y > y + 69){
+            mx = (x - mouse_x < 20) ? movement : 0;
+            my = (mouse_y - (y + 69) < 20) ? movement : 0;
+        }
+        else if (mouse_x > x + 43 && mouse_y < y){
+            mx = (mouse_x - (x + 43) < 20) ? movement : 0;
+            my = (y - mouse_y < 20) ? movement : 0;
+        }
+        else
+            return {0,0};
+
+        return {mx,my};
+
+    }
+    return {0,0};
+}
 
 int main() {
+    sf::Clock clock;
+
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "Labirynth");
 
@@ -75,16 +110,20 @@ int main() {
         shapes.emplace_back(std::move(walls[i]));
     }
 
-    sf::Texture guy_texture;
+    sf::Texture guy_texture; // 43x69
     if (!guy_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/guy.png")) {return 1;}
+    guy_texture.setRepeated(true);
     std::unique_ptr<sf::Sprite> guy = std::make_unique<sf::Sprite>();
     guy->setTexture(guy_texture);
     guy->setPosition(50,50);
-    shapes.emplace_back(std::move(guy));
+    //shapes.emplace_back(std::move(guy));
+    std::unique_ptr<sf::FloatRect> guy_bounds = std::make_unique<sf::FloatRect>(guy->getGlobalBounds());
 
 
     // run the program as long as the window is open
     while (window.isOpen()) {
+        sf::Time elapsed = clock.restart();
+        float dt = elapsed.asSeconds();
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -96,8 +135,11 @@ int main() {
         // clear the window with black color
         window.clear(sf::Color::Black);
 
+        guy->move(50*dt,50*dt);
+
         // draw everything here...
         for(auto &s : shapes) { window.draw(*s); }
+        window.draw(*guy);
 
         // end the current frame
         window.display();
