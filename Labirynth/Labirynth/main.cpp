@@ -13,8 +13,8 @@ std::vector<int> player_move(const int& x, const int& y, const int& movement){
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
         if (mouse_x > x + 43 && mouse_y > y + 69){
-            mx = (mouse_x - (x+43) < 20) ? movement : 0;
-            my = (mouse_y - (y+69) < 20) ? movement : 0;
+            mx = (mouse_x - (x + 43) < 20) ? movement : 0;
+            my = (mouse_y - (y + 69) < 20) ? movement : 0;
         }
         else if (mouse_x < x && mouse_y < y){
             mx = (x - mouse_x < 20) ? movement : 0;
@@ -135,7 +135,10 @@ int main() {
         // clear the window with black color
         window.clear(sf::Color::Black);
 
-        guy->move(50*dt,50*dt);
+        int mx = player_move((guy->getPosition().x), guy->getPosition().y, 40*dt)[0];
+        int my = player_move((guy->getPosition().x), guy->getPosition().y, 40*dt)[1];
+
+        guy->move(mx, my);
 
         // draw everything here...
         for(auto &s : shapes) { window.draw(*s); }
