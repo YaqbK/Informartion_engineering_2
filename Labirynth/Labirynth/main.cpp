@@ -65,10 +65,13 @@ int main() {
     walls[12]->setTextureRect(sf::IntRect(9, 0, 28, 108));
     walls[12]->setPosition(450, 470);
 
-    walls[13]->setTextureRect(sf::IntRect(9, 0, 250, 28));
+    walls[13]->setTextureRect(sf::IntRect(9, 0, 240, 28));
     walls[13]->setPosition(450, 442);
 
-    for (int i = 0; i < 14; ++i) {
+    walls[14]->setTextureRect(sf::IntRect(9, 0, 28, 328));
+    walls[14]->setPosition(665, 120);
+
+    for (int i = 0; i < 15; ++i) {
         shapes.emplace_back(std::move(walls[i]));
     }
 
