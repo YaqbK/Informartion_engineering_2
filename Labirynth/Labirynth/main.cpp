@@ -21,7 +21,7 @@ int main() {
     sf::Texture wall_texture;
     if (!wall_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/wall.png")) {return 1;}
     wall_texture.setRepeated(true);
-    int numOfWalls = 16;
+    int numOfWalls = 15;
     std::vector<std::unique_ptr<sf::Sprite>> walls;
     for(int i=0; i<numOfWalls; i++){
         walls.emplace_back(std::make_unique<sf::Sprite>());
@@ -71,7 +71,7 @@ int main() {
     walls[14]->setTextureRect(sf::IntRect(9, 0, 28, 328));
     walls[14]->setPosition(665, 120);
 
-    for (int i = 0; i < 15; ++i) {
+    for (int i = 0; i < numOfWalls; ++i) {
         shapes.emplace_back(std::move(walls[i]));
     }
 
