@@ -4,37 +4,39 @@
 #include <memory>
 #include <vector>
 #include <SFML/Window/Mouse.hpp>
+#include <cmath>
 
 
-std::vector<int> player_move(const int& x, const int& y, const int& movement){
-    int mouse_x = sf::Mouse::getPosition().x;
-    int mouse_y = sf::Mouse::getPosition().y;
-    int mx, my;
+std::vector<float> player_move(const int& x, const int& y, const float& movement, const int& mouse_x, const int& mouse_y){
+    float mx, my;
+    int temp_x = mouse_x - (x+21);
+    int temp_y = mouse_y - (y+35);
+    int sgn_x = temp_x > 0 ? 1 : -1;
+    int sgn_y = temp_y > 0 ? 1 : -1;
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-        if (mouse_x > x + 43 && mouse_y > y + 69){
-            mx = (mouse_x - (x + 43) < 20) ? movement : 0;
-            my = (mouse_y - (y + 69) < 20) ? movement : 0;
-        }
-        else if (mouse_x < x && mouse_y < y){
-            mx = (x - mouse_x < 20) ? movement : 0;
-            my = (y - mouse_y < 20) ? movement : 0;
-        }
-        else if (mouse_x < x && mouse_y > y + 69){
-            mx = (x - mouse_x < 20) ? movement : 0;
-            my = (mouse_y - (y + 69) < 20) ? movement : 0;
-        }
-        else if (mouse_x > x + 43 && mouse_y < y){
-            mx = (mouse_x - (x + 43) < 20) ? movement : 0;
-            my = (y - mouse_y < 20) ? movement : 0;
-        }
-        else
-            return {0,0};
+    mx = abs(temp_x) > 20 ? movement * sgn_x : 0;
+    my = abs(temp_y) > 20 ? movement * sgn_y : 0;
 
-        return {mx,my};
+//    if (mouse_x > x + 43 || mouse_y > y + 69){
+//        mx = (mouse_x - (x + 43) < 20) ? movement : 0;
+//        my = (mouse_y - (y + 69) < 20) ? movement : 0;
+//    }
+//    else if (mouse_x < x || mouse_y < y){
+//        mx = (x - mouse_x < 20) ? movement*(-1) : 0;
+//        my = (y - mouse_y < 20) ? movement*(-1) : 0;
+//    }
+//    else if (mouse_x < x || mouse_y > y + 69){
+//        mx = (x - mouse_x < 20) ? movement*(-1) : 0;
+//        my = (mouse_y - (y + 69) < 20) ? movement : 0;
+//    }
+//    else if (mouse_x > x + 43 || mouse_y < y){
+//        mx = (mouse_x - (x + 43) < 20) ? movement : 0;
+//        my = (y - mouse_y < 20) ? movement*(-1) : 0;
+//    }
+//    else
+//        return {0,0};
 
-    }
-    return {0,0};
+    return {mx,my};
 }
 
 int main() {
@@ -135,10 +137,19 @@ int main() {
         // clear the window with black color
         window.clear(sf::Color::Black);
 
-        int mx = player_move((guy->getPosition().x), guy->getPosition().y, 40*dt)[0];
-        int my = player_move((guy->getPosition().x), guy->getPosition().y, 40*dt)[1];
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+            int mouse_x = sf::Mouse::getPosition(window).x;
+            int mouse_y = sf::Mouse::getPosition(window).y;
 
-        guy->move(mx, my);
+            float mx = player_move((guy->getPosition().x), guy->getPosition().y, 50*dt, mouse_x, mouse_y)[0];
+            float my = player_move((guy->getPosition().x), guy->getPosition().y, 40*dt, mouse_x, mouse_y)[1];
+
+            //std::cout << (guy->getPosition().x)<< std::endl;
+            //std::cout << dt << std::endl;
+            std::cout << mouse_x <<"; "<< mouse_y << std::endl;
+            std::cout << mx <<"; "<< my << std::endl;
+            guy->move(mx, my);
+        }
 
         // draw everything here...
         for(auto &s : shapes) { window.draw(*s); }
