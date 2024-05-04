@@ -21,7 +21,7 @@ int main() {
     sf::Texture wall_texture;
     if (!wall_texture.loadFromFile("D:/Documents/Projects/PUT/Informartion_engineering_2/Labirynth/Labirynth/images/wall.png")) {return 1;}
     wall_texture.setRepeated(true);
-    int numOfWalls = 10;
+    int numOfWalls = 16;
     std::vector<std::unique_ptr<sf::Sprite>> walls;
     for(int i=0; i<numOfWalls; i++){
         walls.emplace_back(std::make_unique<sf::Sprite>());
@@ -41,16 +41,34 @@ int main() {
     walls[4]->setTextureRect(sf::IntRect(9, 0, 28, (window.getSize().y-100)/2-28));
     walls[4]->setPosition(window.getSize().x-28,(window.getSize().y-100)/2+100);
 
-    walls[5]->setTextureRect(sf::IntRect(9, 0, 200, 28));
+    walls[5]->setTextureRect(sf::IntRect(9, 0, 170, 28));
     walls[5]->setPosition(28, 430);
 
     walls[6]->setTextureRect(sf::IntRect(9, 0, 28, 280));
-    walls[6]->setPosition(150, 27);
+    walls[6]->setPosition(120, 27);
 
-    walls[7]->setTextureRect(sf::IntRect(9, 0, 250, 28));
-    walls[7]->setPosition(178, 110);
+    walls[7]->setTextureRect(sf::IntRect(9, 0, 340, 28));
+    walls[7]->setPosition(148, 110);
 
-    for (int i = 0; i < 8; ++i) {
+    walls[8]->setTextureRect(sf::IntRect(9, 0, 28, 338));
+    walls[8]->setPosition(300, 240);
+
+    walls[9]->setTextureRect(sf::IntRect(9, 0, 60, 28));
+    walls[9]->setPosition(328, 300);
+
+    walls[10]->setTextureRect(sf::IntRect(9, 0, 28, 200));
+    walls[10]->setPosition(488, 110);
+
+    walls[11]->setTextureRect(sf::IntRect(9, 0, 100, 28));
+    walls[11]->setPosition(488, 310);
+
+    walls[12]->setTextureRect(sf::IntRect(9, 0, 28, 108));
+    walls[12]->setPosition(450, 470);
+
+    walls[13]->setTextureRect(sf::IntRect(9, 0, 250, 28));
+    walls[13]->setPosition(450, 442);
+
+    for (int i = 0; i < 14; ++i) {
         shapes.emplace_back(std::move(walls[i]));
     }
 
