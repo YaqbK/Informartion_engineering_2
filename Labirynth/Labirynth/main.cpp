@@ -7,7 +7,36 @@
 #include <cmath>
 
 
-std::vector<float> player_move(const int& x, const int& y, const float& movement, const int& mouse_x, const int& mouse_y){
+bool is_collision_horizontal(const std::unique_ptr<sf::FloatRect>& player, const std::vector<std::unique_ptr<sf::FloatRect>>& walls, const int& nofw){
+    for (int i = 0; i<nofw; i++){
+        if(player->left + player->width >= walls[i]->left && player->left < walls[i]->left + walls[i]->width) // poziom
+        {
+            std::cout << "poziom" << std::endl;
+            std::cout << "stop" << std::endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool is_collision_vertical(const std::unique_ptr<sf::FloatRect>& player, const std::vector<std::unique_ptr<sf::FloatRect>>& walls, const int& nofw, bool flag){
+    for (int i = 0; i<nofw; i++){
+        if(player->top + player->height >= walls[i]->top && player->top < walls[i]->top + walls[i]->height) // pion
+        {
+            if (flag){
+            std::cout << "pion" << std::endl;
+            std::cout << "stop" << std::endl;
+            return true;
+            }
+
+        }
+    }
+    return false;
+}
+
+std::vector<float> player_move(const int& x, const int& y, const float& movement, const int& mouse_x, const int& mouse_y, bool flag_v){
+    if (flag_v)
+        return {0,0};
     float mx, my;
     int temp_x = mouse_x - (x+21);
     int temp_y = mouse_y - (y+35);
@@ -122,15 +151,21 @@ int main() {
         window.clear(sf::Color::Black);
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-            int mouse_x = sf::Mouse::getPosition(window).x;
-            int mouse_y = sf::Mouse::getPosition(window).y;
+                int mouse_x = sf::Mouse::getPosition(window).x;
+                int mouse_y = sf::Mouse::getPosition(window).y;
 
-            float mx = player_move((guy->getPosition().x), guy->getPosition().y, 50*dt, mouse_x, mouse_y)[0];
-            float my = player_move((guy->getPosition().x), guy->getPosition().y, 40*dt, mouse_x, mouse_y)[1];
+                float mx = player_move((guy->getPosition().x), guy->getPosition().y, 50*dt, mouse_x, mouse_y,
+                    is_collision_vertical(guy_bounds, bounds, numOfWalls, is_collision_horizontal(guy_bounds, bounds, numOfWalls)))[0];
+                float my = player_move((guy->getPosition().x), guy->getPosition().y, 40*dt, mouse_x, mouse_y,
+                    is_collision_vertical(guy_bounds, bounds, numOfWalls, is_collision_horizontal(guy_bounds, bounds, numOfWalls)))[1];
 
-            guy->move(mx, my);
+                guy->move(mx, my);
+
         }
 
+        //std::cout << guy->getGlobalBounds().top << guy->getGlobalBounds().left << guy->getGlobalBounds().height << guy->getGlobalBounds().width <<std::endl;
+        //std::cout << is_collision(guy_bounds, bounds, numOfWalls);
+        //std::cout << walls[1]->getGlobalBounds().top << std::endl; // idk why screen goes white
         // draw everything here...
         for(auto &s : shapes) { window.draw(*s); }
         window.draw(*guy);
